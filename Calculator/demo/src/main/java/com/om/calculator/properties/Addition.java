@@ -3,6 +3,7 @@ package com.om.calculator.properties;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -33,6 +34,22 @@ public class Addition {
             ans*=e;
         }
         return ans;
+    }
+    @PostMapping("divide")
+    public String doDivision(@RequestBody List<Integer>numbers){
+        Double ans=numbers.get(0).doubleValue();
+        for(int i=1;i<numbers.size();i++){
+            Integer e=numbers.get(i);
+            if(e!=0){
+                ans/=e.doubleValue();
+            }
+            else{
+
+                return "Cannot Divide with Zero" ;
+
+            }
+        }
+        return ans.toString();
     }
 
 }
