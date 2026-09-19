@@ -31,6 +31,12 @@ public class Users {
     @Column(name="creation_date")
     private LocalDate creationDate;
 
+    @Column(name = "IS_ACTIVE")
+    private Character isActive = 'Y';
+
+    @Column(name = "PASSWORD", nullable = false, length = 100)
+    private String password;
+
     public Users(){
 
     }
@@ -103,5 +109,19 @@ public class Users {
 
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
+    }
+    public Character getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Character isActive) {
+        this.isActive = isActive;
+    }
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

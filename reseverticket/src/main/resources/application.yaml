@@ -1,17 +1,26 @@
 spring:
   application:
     name: reseverticket
-  Datasource:
+  datasource:
     url: jdbc:oracle:thin:@localhost:1521:xe
     username: expa
     password: expa
-  jpa:
-    database-platform: org.hibernate.dialect.OracleDialect
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
+    driver-class-name: oracle.jdbc.OracleDriver
+
+    jpa:
+      database-platform: org.hibernate.dialect.OracleDialect
       hibernate:
-        format_sql: true
-Server:
+        ddl-auto: none
+      show-sql: true
+      properties:
+        hibernate:
+          format_sql: true
+          # Instructs Hibernate 6 to generate Oracle 11g-compatible SQL (using ROWNUM instead of FETCH FIRST)
+          query:
+            in_list_padding: true
+          dialect:
+            oracle:
+              prefer_legacy_fetch: true
+
+server:
   port: 8082
