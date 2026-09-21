@@ -16,7 +16,8 @@ public class UserPrinciple implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("User"));
+        // Returns the actual DB role (e.g., "ROLE_ADMIN" or "ROLE_USER")
+        return Collections.singleton(new SimpleGrantedAuthority(user.getRole()));
     }
 
     @Override

@@ -51,7 +51,6 @@ public class SpringSecurity  {
                                 new AntPathRequestMatcher("/users/sign-up"),
                                 new AntPathRequestMatcher("/users/login")
                         ).permitAll()
-                        .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
