@@ -68,6 +68,9 @@ public class UserService {
             return true;
         }).orElse(false);
     }
+    public String getCurrentUserName(){
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
 
     @Transactional
     public boolean updateProfile(UpdateUserDTO dto) {

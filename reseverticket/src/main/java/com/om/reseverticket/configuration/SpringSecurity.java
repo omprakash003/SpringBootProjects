@@ -4,6 +4,7 @@ import com.om.reseverticket.Service.MyUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -49,9 +50,14 @@ public class SpringSecurity  {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 new AntPathRequestMatcher("/users/sign-up"),
-                                new AntPathRequestMatcher("/users/login")
+                                new AntPathRequestMatcher("/users/login"),
+                                new AntPathRequestMatcher("/trains/all/**")
                         ).permitAll()
+                        .requestMatchers(HttpMethod.POST,"/trains/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE,"trains/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT,"/trains/**").hasRole("ADMIN")
                 )
+
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 

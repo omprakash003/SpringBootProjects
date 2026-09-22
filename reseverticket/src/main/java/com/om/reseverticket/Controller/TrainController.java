@@ -1,0 +1,40 @@
+package com.om.reseverticket.Controller;
+
+import com.om.reseverticket.DOA.TrainDOA;
+import com.om.reseverticket.Entity.Trains;
+import com.om.reseverticket.Service.TrainService;
+import com.om.reseverticket.Service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/trains")
+public class TrainController {
+    @Autowired
+    private TrainService trainService;
+    @Autowired
+    private UserService userService;
+    @GetMapping("/all/{trainId}")
+    public TrainDOA getTrains(@PathVariable Long trainId){
+        return trainService.getTrain(trainId);
+    }
+    @PostMapping("/add")
+    public ResponseEntity<String> addTrains(@RequestBody Trains trains){
+        if(trainService.existsById(trains.getTrain_no())){
+            return new ResponseEntity<>("Train Number "+trains.getTrain_no()+" already exists",HttpStatus.CONFLICT);
+        }
+        trainService.saveTrain(trains);
+        return new ResponseEntity<>(userService.getCurrentUserName()+" has added new train "+ trains.getTrain_name(),HttpStatus.OK);
+    }
+    @DeleteMapping("/delete/{trainId}")
+    public ResponseEntity<String>deleteTrain(@PathVariable Long trainId){
+        if(trainService.deleteById(trainId)){
+            return new ResponseEntity<>("Train No "+ trainId+" deleted successfully",HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Train No "+ trainId+" cannot be deleted",HttpStatus.OK);
+
+    }
+
+}
