@@ -1,6 +1,7 @@
 package com.om.reseverticket.Service;
 
 import com.om.reseverticket.DOA.TrainDOA;
+import com.om.reseverticket.DTO.UpdateTrainDTO;
 import com.om.reseverticket.Entity.Trains;
 import com.om.reseverticket.Exceptions.TrainNotFoundException;
 import com.om.reseverticket.Repository.TrainRepo;
@@ -29,6 +30,22 @@ public class TrainService {
     }
     public boolean deleteById(Long trainId){
         trainRepo.deleteById(trainId);
+        return true;
+    }
+    public boolean update(UpdateTrainDTO updateTrainDTO){
+        Trains trains=trainRepo.findById(updateTrainDTO
+                        .getTrainId())
+                .orElseThrow(()->new TrainNotFoundException(updateTrainDTO.getTrainId()));
+        if(updateTrainDTO.getTrainName()!=null){
+            trains.setTrain_name(updateTrainDTO.getTrainName());
+        }
+        if(updateTrainDTO.getCoaches()!=null){
+            trains.setTotal_coaches(updateTrainDTO.getCoaches());
+        }
+        if(updateTrainDTO.getTrainType()!=null){
+            trains.setTrain_type(updateTrainDTO.getTrainType());
+        }
+        trainRepo.save(trains);
         return true;
     }
 

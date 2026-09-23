@@ -1,6 +1,7 @@
 package com.om.reseverticket.Controller;
 
 import com.om.reseverticket.DOA.TrainDOA;
+import com.om.reseverticket.DTO.UpdateTrainDTO;
 import com.om.reseverticket.Entity.Trains;
 import com.om.reseverticket.Service.TrainService;
 import com.om.reseverticket.Service.UserService;
@@ -34,6 +35,18 @@ public class TrainController {
             return new ResponseEntity<>("Train No "+ trainId+" deleted successfully",HttpStatus.OK);
         }
         return new ResponseEntity<>("Train No "+ trainId+" cannot be deleted",HttpStatus.OK);
+
+    }
+    @PutMapping("/update")
+    public ResponseEntity<String> updateTrain(@RequestBody UpdateTrainDTO updateTrainDTO){
+        if(updateTrainDTO.getTrainId()==null){
+            return new ResponseEntity<>("Please provide train Id",HttpStatus.NOT_ACCEPTABLE);
+        }
+        if(trainService.update(updateTrainDTO)){
+            return new ResponseEntity<>("Train updated successfully",HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Train updated failed",HttpStatus.BAD_REQUEST);
+
 
     }
 
