@@ -56,6 +56,8 @@ public class SpringSecurity  {
                         .requestMatchers(HttpMethod.POST,"/trains/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE,"trains/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT,"/trains/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET,"/trains/**").authenticated()
+                        .requestMatchers(new AntPathRequestMatcher("/routes/**")).hasRole("ADMIN")
                 )
 
                 .httpBasic(Customizer.withDefaults())

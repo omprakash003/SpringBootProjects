@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/trains")
 public class TrainController {
@@ -48,6 +50,10 @@ public class TrainController {
         return new ResponseEntity<>("Train updated failed",HttpStatus.BAD_REQUEST);
 
 
+    }
+    @GetMapping("/get/{trainType}")
+    public ResponseEntity<List<String>> findByType(@PathVariable String trainType){
+        return new ResponseEntity<>(trainService.getTrainByType(trainType),HttpStatus.OK);
     }
 
 }

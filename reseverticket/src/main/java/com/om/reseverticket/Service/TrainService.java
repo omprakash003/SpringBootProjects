@@ -8,6 +8,9 @@ import com.om.reseverticket.Repository.TrainRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class TrainService {
     @Autowired
@@ -47,6 +50,14 @@ public class TrainService {
         }
         trainRepo.save(trains);
         return true;
+    }
+    public List<String> getTrainByType(String type){
+        List<Trains> trains=trainRepo.findByTrainTypeLike(type);
+        List<String > trainNames=new ArrayList<>();
+        for(Trains t :trains){
+            trainNames.add(t.getTrain_no()+" "+t.getTrain_name());
+        }
+        return trainNames;
     }
 
 
