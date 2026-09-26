@@ -15,6 +15,8 @@ import java.util.List;
 public class TrainService {
     @Autowired
     private TrainRepo trainRepo;
+    @Autowired
+    private RouteService routeService;
 
     public boolean AddTrain(Trains train){
         trainRepo.save(train);
@@ -47,6 +49,12 @@ public class TrainService {
         }
         if(updateTrainDTO.getTrainType()!=null){
             trains.setTrain_type(updateTrainDTO.getTrainType());
+        }
+        if(updateTrainDTO.getRouteId()!=null){
+            if(routeService.routeExists(updateTrainDTO.getRouteId())){
+                trains.setRoute_id(routeService.getRouteObj(updateTrainDTO.getRouteId()));
+            }
+
         }
         trainRepo.save(trains);
         return true;

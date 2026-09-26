@@ -1,9 +1,11 @@
 package com.om.reseverticket.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "SMPO_ROUTES")
@@ -15,11 +17,14 @@ public class Routes {
     
     private Long routeId;
     @Column(name="SOURCE_STATION",nullable = false)
-    private String Source;
+    private String source;
     @Column(name="DESTINATION_STATION",nullable = false)
-    private String Destination;
+    private String destination;
     @Column(name = "CREATED_ON",nullable = false,insertable = false,updatable = false)
     private LocalDateTime createdOn;
+    @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Trains> trains;
 
     public Long getRouteId() {
         return routeId;
@@ -30,19 +35,19 @@ public class Routes {
     }
 
     public String getSource() {
-        return Source;
+        return source;
     }
 
     public void setSource(String source) {
-        Source = source;
+        this.source = source;
     }
 
     public String getDestination() {
-        return Destination;
+        return destination;
     }
 
     public void setDestination(String destination) {
-        Destination = destination;
+        this.destination = destination;
     }
 
     public LocalDateTime getCreatedOn() {
@@ -51,5 +56,14 @@ public class Routes {
 
     public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
+
+    }
+
+    public List<Trains> getTrains() {
+        return trains;
+    }
+
+    public void setTrains(List<Trains> trains) {
+        this.trains = trains;
     }
 }

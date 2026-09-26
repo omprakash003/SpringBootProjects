@@ -12,4 +12,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(td.getMessage(), HttpStatus.NOT_FOUND);
 
     }
+    @ExceptionHandler(RouteNotFoundException.class)
+    public ResponseEntity<String>handleRouteNotFound(RouteNotFoundException rn){
+        return new ResponseEntity<>(rn.getMessage(),HttpStatus.NOT_FOUND);
+    }
 }

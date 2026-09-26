@@ -1,9 +1,7 @@
 package com.om.reseverticket.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "SMPO_TRAINS")
@@ -17,6 +15,10 @@ public class Trains {
     private String train_type;
     @Column(name = "TOTAL_COACHES",nullable = false)
     private Integer total_coaches;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "ROUTE_ID")
+    @JsonBackReference
+    private Routes route;
     public Trains(){
 
     }
@@ -51,5 +53,13 @@ public class Trains {
 
     public void setTotal_coaches(Integer total_coaches) {
         this.total_coaches = total_coaches;
+    }
+
+    public Routes getRoute_id() {
+        return route;
+    }
+
+    public void setRoute_id(Routes route_id) {
+        this.route = route_id;
     }
 }

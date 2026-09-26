@@ -5,6 +5,7 @@ public class UpdateTrainDTO {
     private String trainName;
     private String trainType;
     private Integer coaches;
+    private Long routeId;
 
     public Long getTrainId() {
         return trainId;
@@ -35,6 +36,15 @@ public class UpdateTrainDTO {
     }
 
     public Integer getCoaches() {
+
         return coaches;
+    }
+
+    public Long getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(Long routeId) {
+        this.routeId = routeId;
     }
 }
