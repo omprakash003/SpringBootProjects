@@ -25,6 +25,11 @@ public class Routes {
     @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Trains> trains;
+    @OneToMany(mappedBy = "routes",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonManagedReference
+
+    private List<Stops> stops;
+
 
     public Long getRouteId() {
         return routeId;

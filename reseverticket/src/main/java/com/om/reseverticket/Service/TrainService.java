@@ -67,6 +67,15 @@ public class TrainService {
         }
         return trainNames;
     }
+    public List<TrainDOA> searchTrains(String source, String destination){
+        List<TrainDOA> list=new ArrayList<>();
+        List<Trains> trains=trainRepo.findTrains(source,destination);
+        for(Trains tr: trains){
+            TrainDOA doa=new TrainDOA(tr);
+            list.add(doa);
+        }
+        return list;
+    }
 
 
 }

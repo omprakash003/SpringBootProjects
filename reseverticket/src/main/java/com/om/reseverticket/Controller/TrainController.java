@@ -1,6 +1,7 @@
 package com.om.reseverticket.Controller;
 
 import com.om.reseverticket.DOA.TrainDOA;
+import com.om.reseverticket.DTO.TrainSearchDTO;
 import com.om.reseverticket.DTO.UpdateTrainDTO;
 import com.om.reseverticket.Entity.Trains;
 import com.om.reseverticket.Service.TrainService;
@@ -54,6 +55,11 @@ public class TrainController {
     @GetMapping("/get/{trainType}")
     public ResponseEntity<List<String>> findByType(@PathVariable String trainType){
         return new ResponseEntity<>(trainService.getTrainByType(trainType),HttpStatus.OK);
+    }
+    @PostMapping("/search")
+    public ResponseEntity<List<TrainDOA>> searchTrains(@RequestBody TrainSearchDTO dto){
+        List<TrainDOA> list=trainService.searchTrains(dto.getSource(), dto.getDestination());
+        return new ResponseEntity<>(list,list.isEmpty()?HttpStatus.NOT_FOUND:HttpStatus.FOUND);
     }
 
 }
